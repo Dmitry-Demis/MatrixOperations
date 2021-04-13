@@ -13,7 +13,6 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-
 namespace MatrixOperations
 {
     /// <summary>
@@ -29,7 +28,7 @@ namespace MatrixOperations
             //InitializeComponent();
             Count = Enumerable.Range(Min, Max - Min + 1).ToArray();
             DataContext = this;
-            
+
         }
     }
 }
