@@ -6,38 +6,104 @@
         xmlns:local="clr-namespace:MatrixOperations"
         
         mc:Ignorable="d"
-        Title="Дзюба Д.О., 3-46, Калькулятор матриц" Height="450" Width="800">
-    <Grid ShowGridLines="true">
+        Title="Дзюба Д.О., 3-46, Калькулятор матриц" Height="1000" Width="800">
+
+    <Grid x:Name="myGrid">
         <Grid.RowDefinitions>
             <RowDefinition Height="30"></RowDefinition>
-            <RowDefinition Height="30"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>            
             <RowDefinition Height="30"></RowDefinition>
             <RowDefinition Height="auto"></RowDefinition>
-            <RowDefinition></RowDefinition>
+            <RowDefinition Height="400"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="400"></RowDefinition>
         </Grid.RowDefinitions>
         <TextBlock Grid.Row="0" TextAlignment="Center" FontSize="18"
                    FontFamily="Arial black">Калькулятор матриц</TextBlock>
         <StackPanel Grid.Row="1" Orientation="Horizontal">
             <TextBlock Margin="5" FontSize="18" FontFamily="Arial black"> Выберите размер матриц</TextBlock>
-            <ComboBox Margin="5" ItemsSource="{Binding Count}" 
+            <TextBlock Margin="5" FontSize="18" FontFamily="Arial black" VerticalAlignment="Center"> A =</TextBlock>
+            <ComboBox x:Name="cmbLeftMatrixRow"
+                Margin="5" ItemsSource="{Binding Count}" 
                   SelectedIndex="0"
                   MinWidth="40"
                   HorizontalAlignment="Center" VerticalAlignment="Center">
             </ComboBox>
             <TextBlock VerticalAlignment="Center" FontSize="18" FontFamily="Arial black">×</TextBlock>
-            <ComboBox Margin="5" ItemsSource="{Binding Count}" 
+            <ComboBox x:Name="cmbLeftMatrixCol"
+                Margin="5" ItemsSource="{Binding Count}" 
                   SelectedIndex="0"
                   MinWidth="40"
                   HorizontalAlignment="Center" VerticalAlignment="Center">
             </ComboBox>
+            <TextBlock Margin="5" FontSize="18" FontFamily="Arial black" VerticalAlignment="Center"> B =</TextBlock>
+            <ComboBox x:Name="cmbRightMatrixRow"
+                Margin="5" ItemsSource="{Binding Count}" 
+                  SelectedIndex="0"
+                  MinWidth="40"
+                  HorizontalAlignment="Center" VerticalAlignment="Center">
+            </ComboBox>
+            <TextBlock VerticalAlignment="Center" FontSize="18" FontFamily="Arial black">×</TextBlock>
+            <ComboBox x:Name="cmbRightMatrixCol"
+                Margin="5" ItemsSource="{Binding Count}" 
+                  SelectedIndex="0"
+                  MinWidth="40"
+                  HorizontalAlignment="Center" VerticalAlignment="Center">
+            </ComboBox>
+
+            <Button x:Name="btnApply"
+                Margin="5" FontFamily="Arial Black" FontSize="18" Padding="5" Click="btnApply_Click">Применить</Button>
         </StackPanel>
         <TextBlock Grid.Row="2" Margin="5" FontSize="18" FontFamily="Arial black" TextAlignment="Center"> Введите значения матриц:</TextBlock>
-        <StackPanel Grid.Row="3" Orientation="Horizontal">
-            <DockPanel>
-                <TextBlock  DockPanel.Dock="Left"  FontSize="18" FontFamily="Arial black" TextAlignment="Center" VerticalAlignment="Center"> A =</TextBlock>
+        <Grid x:Name="gridForMatrix" Grid.Row="4">
+            <Grid.RowDefinitions>
+                <RowDefinition ></RowDefinition>
+                <RowDefinition ></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"></ColumnDefinition>
+                <ColumnDefinition Width="400"></ColumnDefinition>
+                <ColumnDefinition Width="auto"></ColumnDefinition>
+                <ColumnDefinition Width="400"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Column="0" 
+                Margin="5,140" FontSize="18" FontFamily="Arial black" TextAlignment="Center" VerticalAlignment="Center" Grid.RowSpan="2"> A =</TextBlock>
+            <TextBlock Grid.Column="2" 
+                Margin="5,140" FontSize="18" FontFamily="Arial black" TextAlignment="Center" VerticalAlignment="Center" Grid.RowSpan="2"> B =</TextBlock>
+            <WrapPanel Grid.Column="1" x:Name="wrpPanel" Grid.RowSpan="2" >
 
-            </DockPanel>
+            </WrapPanel>
+            <WrapPanel Grid.Column="3" x:Name="wrpPanel2" Grid.RowSpan="2" >
 
+            </WrapPanel>
+        </Grid>
+        <StackPanel Grid.Row="5" Orientation="Horizontal">
+         <TextBlock 
+            Margin="5" FontSize="18" FontFamily="Arial black"> Выберите действие</TextBlock>
+            <TextBlock Margin="5" FontSize="18" FontFamily="Arial black"> A </TextBlock>
+            <ComboBox x:Name ="myCmb"
+                       ItemsSource="{Binding Property}" 
+          IsSynchronizedWithCurrentItem="True" 
+          Text="Select Option" />
+            <TextBlock Margin="5" FontSize="18" FontFamily="Arial black"> B</TextBlock>
+            <Button x:Name="btnApply2"
+                Margin="5" FontFamily="Arial Black" FontSize="18" Padding="5" Click="btnApply2_Click">Применить</Button>
+            <Button Grid.Column="4" Width="150" Height="30"
+                x:Name="btnSave"
+                Margin="5" FontFamily="Arial Black" FontSize="18" Padding="5" Click="btnSave_Click">Сохранить</Button>
         </StackPanel>
+        <Grid x:Name="gridResult" Grid.Row="6">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"></ColumnDefinition>
+                <ColumnDefinition Width="400"></ColumnDefinition>
+             </Grid.ColumnDefinitions>
+            <TextBlock Grid.Column="0" 
+                Margin="5" FontSize="18" FontFamily="Arial black" TextAlignment="Center" VerticalAlignment="Center" Grid.RowSpan="2"> C =</TextBlock>
+            <WrapPanel Grid.Column="1" x:Name="wrpPanel3">
+
+            </WrapPanel>
+            
+        </Grid>
+
     </Grid>
 </Window>
