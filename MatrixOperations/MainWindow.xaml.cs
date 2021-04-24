@@ -33,7 +33,7 @@ namespace MatrixOperations
         }
 
         private const int Min = 2;
-        private const int Max = 10;
+        private const int Max = 7;
         public MainWindow()
         {
             //InitializeComponent();
