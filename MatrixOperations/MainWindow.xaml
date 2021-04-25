@@ -23,7 +23,7 @@
         <StackPanel Grid.Row="1" Orientation="Horizontal">
             <TextBlock Margin="5" FontSize="18" FontFamily="Arial black"> Выберите размер матриц</TextBlock>
             <TextBlock Margin="5" FontSize="18" FontFamily="Arial black" VerticalAlignment="Center"> A =</TextBlock>
-            <ComboBox x:Name="cmbLeftMatrixRow"
+            <ComboBox x:Name="cmbLeftMatrixRow" 
                 Margin="5" ItemsSource="{Binding Count}" 
                   SelectedIndex="0"
                   MinWidth="40"

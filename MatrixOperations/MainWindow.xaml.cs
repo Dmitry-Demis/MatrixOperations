@@ -26,7 +26,8 @@ namespace MatrixOperations
     {
 
         public int[] Count { get; private set; }
-        public List<String> Property
+
+        public List<string> Property { 
         {
             get
             {
@@ -48,6 +49,13 @@ namespace MatrixOperations
         {
 
             SelectedValuesForSizeOfMatrices();
+        }
+        private T Generate<T>(Func<int, int, T> func)
+        {
+            Random random = new Random();
+            int i = 0, j = 0;
+            return  (dynamic)func(i, j) + random.Next(-15, 15);
+            
         }
         private void SelectedValuesForSizeOfMatrices()
         {
@@ -228,60 +236,5 @@ namespace MatrixOperations
         }
 
     }
-    public class MatrixToDataViewConverter : IMultiValueConverter
-    {
-        public string[] RowHeaders
-        {
-            get
-            {
-                return new[] { "RowHeader1", "RowHeader2", "RowHeader3", "RowHeader4" };
-            }
-        }
-        public string[] ColumnHeaders
-        {
-            get { return new[] { "ColumnHeader1", "ColumnHeader2", "ColumnHeader3" }; }
-        }
-
-        public string[][] Values
-        {
-            get
-            {
-                return new[]
-          {
-        new []{"Value11", "Value12", "Value13"},
-        new []{"Value21", "Value22", "Value23"},
-        new []{"Value31", "Value32", "Value33"},
-        new []{"Value41", "Value42", "Value43"},
-    };
-            }
-        }
-        public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
-        {
-            var myDataTable = new DataTable();
-            var colums = values[0] as string[];
-            var rows = values[1] as string[];
-            var vals = values[2] as string[][];
-            myDataTable.Columns.Add("---");    //The blanc corner column
-            foreach (var value in colums)
-            {
-                myDataTable.Columns.Add(value);
-            }
-            int index = 0;
-
-            foreach (string row in rows)
-            {
-                var tmp = new string[1 + vals[index].Count()];
-                vals[index].CopyTo(tmp, 1);
-                tmp[0] = row;
-                myDataTable.Rows.Add(tmp);
-                index++;
-            }
-            return myDataTable.DefaultView;
-        }
-
-        public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
-        {
-            throw new NotImplementedException();
-        }
-    }
+   
 }
