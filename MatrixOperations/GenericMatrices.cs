@@ -28,6 +28,7 @@ namespace MatrixOperations
             get => ArrayOfT[row, column];
             set => ArrayOfT[row, column] = value;
         }
+
         public static GenericMatrix<T> operator +(GenericMatrix<T> lhs, GenericMatrix<T> rhs)
         {
             if (lhs.Row != rhs.Row || rhs.Column != lhs.Column)
