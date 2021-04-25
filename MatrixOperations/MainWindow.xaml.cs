@@ -4,6 +4,7 @@ using System.Data;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using Microsoft.Win32;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -23,13 +24,14 @@ namespace MatrixOperations
     /// </summary>
     public partial class MainWindow : Window
     {
-      
+
         public int[] Count { get; private set; }
-        public List<String> Property { 
-        get
+        public List<String> Property
         {
-        return new List<string>(){"+", "*"};
-        }
+            get
+            {
+                return new List<string>() { "+", "*" };
+            }
         }
 
         private const int Min = 2;
@@ -63,7 +65,7 @@ namespace MatrixOperations
                     TextBox x = new TextBox();
                     x.Name = "new_textbox";
                     x.Height = 390 / leftMatrixRow;
-                    x.Width = 390/ leftMatrixCol;
+                    x.Width = 390 / leftMatrixCol;
                     x.FontSize = 18;
                     x.Text = random.Next(-50, 24).ToString();
                     // x.FontFamily = "Arial Black";
@@ -71,11 +73,11 @@ namespace MatrixOperations
                     x.TextAlignment = TextAlignment.Center;
                     x.TextWrapping = TextWrapping.Wrap;
                     //x.VerticalScrollBarVisibility = ScrollBarVisibility.Visible;
-                    x.AcceptsReturn = true; 
-                   wrpPanel.Children.Add(x);
+                    x.AcceptsReturn = true;
+                    wrpPanel.Children.Add(x);
                     /*Canvas.SetLeft(x, 20);
                     Canvas.SetTop(x, 20);*/
-                                  
+
                 }
             }
             for (int i = 0; i < rightMatrixRow; i++)
@@ -115,14 +117,14 @@ namespace MatrixOperations
 
             GenericMatrix<int> genericMatrix1 = new GenericMatrix<int>(leftMatrixRow, leftMatrixCol);
             GenericMatrix<int> genericMatrix2 = new GenericMatrix<int>(rightMatrixRow, rightMatrixCol);
-            
+
             int r = 0, c = 0;
             for (int i = 0; i < wrpPanel.Children.Count; i++)
             {
                 var s = int.Parse((wrpPanel.Children[i] as TextBox).Text);
                 genericMatrix1[r, c] = s;
                 c++;
-                if (c== leftMatrixCol)
+                if (c == leftMatrixCol)
                 {
                     c = 0;
                     r++;
@@ -153,7 +155,7 @@ namespace MatrixOperations
 
                     MessageBox.Show(ex.Message);
                 }
-                
+
             }
             else
             {
@@ -190,26 +192,41 @@ namespace MatrixOperations
 
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
-            using (StreamWriter sw = new StreamWriter("result.cvs", false, System.Text.Encoding.UTF8))
+
+            SaveToFile();
+
+        }
+
+        public void SaveToFile()
+        {
+            SaveFileDialog saveFileDialog1 = new SaveFileDialog();
+            saveFileDialog1.Filter = "Comma-Separated Values|*.csv";
+            saveFileDialog1.Title = "Сохраняем csv файл";
+            saveFileDialog1.ShowDialog();
+
+
+            if (saveFileDialog1.FileName != "")
             {
-                for (int i = 0; i < result.Row; i++)
+                using (var sw = new StreamWriter(saveFileDialog1.FileName))
                 {
-                    bool sep = false;
-                    for (int j = 0; j < result.Column; j++)
+                    for (int i = 0; i < result.Row; i++)
                     {
-                        if (sep)
+                        bool sep = false;
+                        for (int j = 0; j < result.Column; j++)
                         {
-                            sw.Write(";");
+                            if (sep)
+                            {
+                                sw.Write(";");
+                            }
+                            sep = true;
+                            sw.Write($"{result[i, j]}");
                         }
-                        sep = true;
-                        sw.Write($"{result[i, j]}") ;
+                        sw.WriteLine();
                     }
-                    sw.WriteLine();
                 }
-                
-                MessageBox.Show("File has been created");
             }
         }
+
     }
     public class MatrixToDataViewConverter : IMultiValueConverter
     {
