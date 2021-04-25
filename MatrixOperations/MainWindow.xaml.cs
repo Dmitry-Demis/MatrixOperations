@@ -27,7 +27,7 @@ namespace MatrixOperations
 
         public int[] Count { get; private set; }
 
-        public List<string> Property { 
+        public List<string> Property
         {
             get
             {
@@ -113,6 +113,7 @@ namespace MatrixOperations
         private void btnApply2_Click(object sender, RoutedEventArgs e)
         {
             DoOperation();
+            btnSave.IsEnabled = true;
         }
         private GenericMatrix<int> result;
         private void DoOperation()
@@ -205,7 +206,7 @@ namespace MatrixOperations
 
         }
 
-        public void SaveToFile()
+        private void SaveToFile()
         {
             SaveFileDialog saveFileDialog1 = new SaveFileDialog();
             saveFileDialog1.Filter = "Comma-Separated Values|*.csv";
